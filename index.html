@@ -1,16 +1,36 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>Malla Administración Pública</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Malla Interactiva AP UC</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
+<header>
+  <h1>Malla Interactiva – Administración Pública UC</h1>
 
-<h1>Malla Interactiva – Administración Pública</h1>
-<p class="hint">Haz click en los ramos cursados para desbloquear los siguientes</p>
+  <div id="top-controls">
+    <input id="buscador" type="text" placeholder="Buscar ramo...">
 
-<div id="malla"></div>
+    <label class="switch">
+      <input id="dark-toggle" type="checkbox">
+      <span class="slider"></span>
+    </label>
+  </div>
+</header>
+
+<div id="progreso-container">
+  <div id="progreso-bar"></div>
+  <span id="progreso-text">Avance: 0%</span>
+</div>
+
+<div id="malla-container">
+  <svg id="lineas"></svg>
+  <div id="semestres"></div>
+</div>
+
+<div id="tooltip" class="tooltip"></div>
 
 <script src="script.js"></script>
 </body>
