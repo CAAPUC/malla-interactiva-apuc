@@ -1,152 +1,86 @@
 body {
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: #f8f9fa;
-    margin: 0;
-    padding: 20px;
-    color: #333;
+  font-family: Arial, sans-serif;
+  background-color: #fff0f5;
+  margin: 0;
+  padding: 20px;
 }
 
-header {
-    text-align: center;
-    margin-bottom: 30px;
+h1 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  color: #c2185b;
+  text-align: center;
+  margin-bottom: 40px;
 }
 
-/* Barra de Progreso */
-.progress-container {
-    max-width: 600px;
-    margin: 0 auto 20px;
-    text-align: center;
-}
-.progress-bar {
-    height: 10px;
-    background: #e0e0e0;
-    border-radius: 5px;
-    overflow: hidden;
-    margin-top: 5px;
-}
-.progress-fill {
-    height: 100%;
-    background: #00c853;
-    width: 0%;
-    transition: width 0.5s ease;
+.malla-grid {
+  display: flex;
+  gap: 30px;
+  overflow-x: auto;
+  padding: 10px;
+  justify-content: flex-start;
 }
 
-/* Referencias de Colores */
-.referencias {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-    font-size: 0.9em;
-}
-.ref-item { display: flex; align-items: center; gap: 5px; }
-.dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
-
-/* LAYOUT DE LA MALLA (Grilla) */
-.scroll-wrapper {
-    overflow-x: auto;
-    padding-bottom: 20px;
+.semestre {
+  min-width: 220px;
+  background-color: #ffe4ec;
+  border: 2px solid #f48fb1;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-#malla-container {
-    display: flex;
-    gap: 15px; /* Espacio entre Años */
-    min-width: max-content; /* Asegura que no se aplasten */
-    justify-content: center;
+.semestre h2 {
+  text-align: center;
+  color: #ad1457;
+  font-size: 1.1em;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #f8bbd0;
+  padding-bottom: 6px;
 }
 
-/* Columna de AÑO (Ej: Año 1) */
-.anio-col {
-    display: flex;
-    flex-direction: column;
-    background: white;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-.anio-header {
-    background-color: #2c3e50; /* Color oscuro como la foto */
-    color: white;
-    text-align: center;
-    padding: 10px 0;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.semestres-wrapper {
-    display: flex; /* Pone los dos semestres uno al lado del otro */
-    border-top: 1px solid #ddd;
-}
-
-/* Columna de SEMESTRE (Ej: I, II) */
-.semestre-col {
-    width: 140px; /* Ancho fijo para uniformidad */
-    display: flex;
-    flex-direction: column;
-    border-right: 1px solid #eee;
-}
-.semestre-col:last-child { border-right: none; }
-
-.semestre-header {
-    background-color: #546e7a;
-    color: white;
-    text-align: center;
-    font-size: 0.8em;
-    padding: 5px 0;
-    font-weight: bold;
-}
-
-.ramos-list {
-    padding: 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    flex-grow: 1; /* Para que ocupen todo el alto */
-    background: #fff;
-}
-
-/* TARJETAS DE RAMOS */
 .ramo {
-    height: 80px; /* Cuadradas/Rectangulares fijas */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 5px;
-    border-radius: 4px;
-    font-size: 0.75em; /* Letra pequeña para que quepa */
-    line-height: 1.2;
-    cursor: pointer;
-    transition: all 0.2s;
-    color: white;
-    font-weight: 500;
-    position: relative;
-    user-select: none;
-    word-wrap: break-word;
+  background: linear-gradient(145deg, #f8bbd0, #ec9fb9);
+  border: 1px solid #c2185b;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 10px;
+  text-align: center;
+  cursor: pointer;
+  color: #880e4f;
+  font-weight: 600;
+  /* Sombra para efecto 3D */
+  box-shadow: 4px 4px 8px #c28aa2, -4px -4px 8px #ffcee1;
+  transition: all 0.3s ease;
+  user-select: none;
 }
 
-/* ESTADOS */
-/* Por defecto: Oscuro (No cursado) */
-.ramo { 
-    filter: brightness(0.65) grayscale(40%);
-    opacity: 0.9;
+.ramo:hover {
+  background: linear-gradient(145deg, #f48fb1, #e47c9d);
+  box-shadow: 6px 6px 10px #b67288, -6px -6px 10px #ffbed4;
+  color: #5c0040;
+  transform: translateY(-3px);
 }
 
-/* Aprobado: Color vivo */
-.ramo.aprobado {
-    filter: brightness(1) grayscale(0%);
-    opacity: 1;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    transform: scale(1.02);
-    z-index: 2;
+.ramo:active {
+  box-shadow: inset 3px 3px 5px #b67288, inset -3px -3px 5px #ffbed4;
+  transform: translateY(1px);
 }
 
-/* Bloqueado: Gris */
 .ramo.bloqueado {
-    background-color: #e0e0e0 !important;
-    color: #999;
-    cursor: not-allowed;
-    filter: none;
+  background-color: #f3f3f3;
+  color: #999;
+  border-style: dashed;
+  cursor: not-allowed;
+  box-shadow: none;
+  background: none;
+}
+
+.ramo.aprobado {
+  background: linear-gradient(145deg, #881753, #880e4f) !important;
+  color: #ec9fb9;
+  border-color: #5c0040;
+  text-decoration: line-through;
+  font-style: italic;
+  box-shadow: 4px 4px 8px #c28aa2, -4px -4px 8px #ffcee1;
 }
