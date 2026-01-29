@@ -1,86 +1,152 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f2f5;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
     padding: 20px;
-    text-align: center;
+    color: #333;
 }
 
 header {
+    text-align: center;
     margin-bottom: 30px;
 }
 
-.referencias span {
-    padding: 5px 10px;
-    margin: 0 5px;
-    border-radius: 4px;
-    color: white;
-    font-size: 0.8em;
-    font-weight: bold;
+/* Barra de Progreso */
+.progress-container {
+    max-width: 600px;
+    margin: 0 auto 20px;
+    text-align: center;
+}
+.progress-bar {
+    height: 10px;
+    background: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 5px;
+}
+.progress-fill {
+    height: 100%;
+    background: #00c853;
+    width: 0%;
+    transition: width 0.5s ease;
+}
+
+/* Referencias de Colores */
+.referencias {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    font-size: 0.9em;
+}
+.ref-item { display: flex; align-items: center; gap: 5px; }
+.dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+
+/* LAYOUT DE LA MALLA (Grilla) */
+.scroll-wrapper {
+    overflow-x: auto;
+    padding-bottom: 20px;
 }
 
 #malla-container {
     display: flex;
-    flex-wrap: nowrap; /* Para que quede horizontal como malla real */
-    overflow-x: auto;
-    gap: 20px;
-    padding-bottom: 20px;
-    align-items: flex-start;
+    gap: 15px; /* Espacio entre Años */
+    min-width: max-content; /* Asegura que no se aplasten */
+    justify-content: center;
 }
 
-.semestre {
-    min-width: 140px;
+/* Columna de AÑO (Ej: Año 1) */
+.anio-col {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-.titulo-semestre {
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-    font-size: 0.9em;
-}
-
-.ramo {
-    padding: 10px;
-    border-radius: 6px;
+.anio-header {
+    background-color: #2c3e50; /* Color oscuro como la foto */
     color: white;
-    font-size: 0.85em;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    position: relative;
-    user-select: none;
-    height: 60px; /* Altura fija para uniformidad */
+    text-align: center;
+    padding: 10px 0;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.semestres-wrapper {
+    display: flex; /* Pone los dos semestres uno al lado del otro */
+    border-top: 1px solid #ddd;
+}
+
+/* Columna de SEMESTRE (Ej: I, II) */
+.semestre-col {
+    width: 140px; /* Ancho fijo para uniformidad */
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #eee;
+}
+.semestre-col:last-child { border-right: none; }
+
+.semestre-header {
+    background-color: #546e7a;
+    color: white;
+    text-align: center;
+    font-size: 0.8em;
+    padding: 5px 0;
+    font-weight: bold;
+}
+
+.ramos-list {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 1; /* Para que ocupen todo el alto */
+    background: #fff;
+}
+
+/* TARJETAS DE RAMOS */
+.ramo {
+    height: 80px; /* Cuadradas/Rectangulares fijas */
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 0.75em; /* Letra pequeña para que quepa */
     line-height: 1.2;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: white;
+    font-weight: 500;
+    position: relative;
+    user-select: none;
+    word-wrap: break-word;
 }
 
-/* ESTADO: NO CURSADO (Por defecto - Oscuro/Opaco) [cite: 91] */
-.ramo {
-    filter: brightness(0.6) grayscale(30%); 
+/* ESTADOS */
+/* Por defecto: Oscuro (No cursado) */
+.ramo { 
+    filter: brightness(0.65) grayscale(40%);
     opacity: 0.9;
 }
 
-/* ESTADO: CURSADO (Brillante/Color Real) */
+/* Aprobado: Color vivo */
 .ramo.aprobado {
     filter: brightness(1) grayscale(0%);
     opacity: 1;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    border: 2px solid #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transform: scale(1.02);
+    z-index: 2;
 }
 
-/* ESTADO: BLOQUEADO (Si no tienes el requisito) */
+/* Bloqueado: Gris */
 .ramo.bloqueado {
+    background-color: #e0e0e0 !important;
+    color: #999;
     cursor: not-allowed;
-    background-color: #555 !important; /* Gris oscuro */
-    filter: grayscale(100%);
-    opacity: 0.3;
-}
-
-.sigla {
-    display: none; /* Oculta la sigla para limpieza visual, opcional */
+    filter: none;
 }
