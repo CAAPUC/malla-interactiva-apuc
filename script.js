@@ -10,71 +10,72 @@ const malla = [
     // AÑO 1
     { title: "Semestre 1", ramos: [
         { id: "MAT1000", name: "Precálculo", creditos: 10, color: COLORS.default, req: [] },
-        { id: "ICP101", name: "Intro. Ciencia Política", creditos: 10, color: COLORS.default, req: [] },
+        { id: "ICP101", name: "Introducción a la Ciencia Política", creditos: 10, color: COLORS.default, req: [] },
         { id: "ADP002G", name: "Gestión Pública I", creditos: 10, color: COLORS.default, req: [] },
         { id: "ADP001G", name: "Justicia y Bien Común", creditos: 10, color: COLORS.default, req: [] },
         { id: "FIL2001", name: "Filosofía ¿Para qué?", creditos: 10, color: COLORS.general, req: [] },
-        { id: "VRA100C", name: "Ex. Com. Escrita", creditos: 0, color: COLORS.default, req: [] }
+        { id: "VRA100C", name: "Exámen Comunicación Escrita", creditos: 0, color: COLORS.default, req: [] }
+        { id: "VRA2000", name: "English Test Alte 2", creditos: 0, color: COLORS.default, req: [] }
     ]},
     { title: "Semestre 2", ramos: [
         { id: "MAT1100", name: "Cálculo I", creditos: 10, color: COLORS.default, req: ["MAT1000"] },
-        { id: "EAE11A", name: "Intro. Microeconomía", creditos: 10, color: COLORS.default, req: [] },
-        { id: "ADP001S", name: "Comp. Organizacional", creditos: 10, color: COLORS.default, req: [] },
-        { id: "ADP001D", name: "Intro. al Derecho", creditos: 10, color: COLORS.default, req: [] },
+        { id: "EAE11A", name: "Introducción a la Microeconomía", creditos: 10, color: COLORS.default, req: [] },
+        { id: "ADP001S", name: "Comportamiento Organizacional", creditos: 10, color: COLORS.default, req: [] },
+        { id: "ADP001D", name: "Introducción al Derecho", creditos: 10, color: COLORS.default, req: [] },
         { id: "OFG1", name: "OFG", creditos: 10, color: COLORS.general, req: [] }
     ]},
     // AÑO 2
     { title: "Semestre 3", ramos: [
-        { id: "EYP1010", name: "Probabilidad y Est.", creditos: 10, color: COLORS.default, req: ["MAT1100"] },
-        { id: "ADP001E", name: "Fund. Macroeconomía", creditos: 10, color: COLORS.default, req: [] },
+        { id: "EYP1010", name: "Probabilidad y Estadística", creditos: 10, color: COLORS.default, req: ["MAT1100"] },
+        { id: "ADP001E", name: "Fundamentos de la Macroeconomía", creditos: 10, color: COLORS.default, req: [] },
         { id: "ADP003G", name: "Gestión Pública II", creditos: 10, color: COLORS.default, req: [] },
-        { id: "GOB1001", name: "Intro. Políticas Públicas", creditos: 10, color: COLORS.default, req: [] },
+        { id: "GOB1001", name: "Introducción a las Políticas Públicas", creditos: 10, color: COLORS.default, req: [] },
         { id: "OFG2", name: "OFG", creditos: 10, color: COLORS.general, req: [] }
     ]},
     { title: "Semestre 4", ramos: [
-        { id: "ADP004G", name: "Métodos Aplicados", creditos: 10, color: COLORS.default, req: ["EYP1010"] },
-        { id: "ADP002E", name: "Econ. Sector Público", creditos: 10, color: COLORS.default, req: ["ADP001E"] },
-        { id: "ICP103", name: "Intro. Pol. Comparada", creditos: 10, color: COLORS.default, req: [] },
-        { id: "ADP002D", name: "Inst. y Garantías", creditos: 10, color: COLORS.default, req: [] },
+        { id: "ADP004G", name: "Métodos Aplicados a la Gestión Pública", creditos: 10, color: COLORS.default, req: ["EYP1010"] },
+        { id: "ADP002E", name: "Economía del Sector Público", creditos: 10, color: COLORS.default, req: ["ADP001E"] },
+        { id: "ICP103", name: "Introducción a la Políica Comparada", creditos: 10, color: COLORS.default, req: [] },
+        { id: "ADP002D", name: "Instituiones y Garantías del EStado", creditos: 10, color: COLORS.default, req: [] },
         { id: "OFG3", name: "OFG", creditos: 10, color: COLORS.general, req: [] }
     ]},
     // AÑO 3
     { title: "Semestre 5", ramos: [
-        { id: "ADP005G", name: "Evidencias Gestión P.", creditos: 10, color: COLORS.default, req: [] },
+        { id: "ADP005G", name: "Evidencias para la Gestión Pública", creditos: 10, color: COLORS.default, req: [] },
         { id: "EAA1210", name: "Contabilidad I", creditos: 10, color: COLORS.profesional, req: [] },
-        { id: "ADP201C", name: "Pol. en Gestión y PP", creditos: 10, color: COLORS.profesional, req: ["ICP101"] },
-        { id: "ADP201D", name: "Régimen Jurídico", creditos: 10, color: COLORS.profesional, req: ["ADP002D"] },
+        { id: "ADP201C", name: "Política en Gestión y Políticas Públicas", creditos: 10, color: COLORS.profesional, req: ["ICP101"] },
+        { id: "ADP201D", name: "Régimen Jurídico de la Administración del Estado", creditos: 10, color: COLORS.profesional, req: ["ADP002D"] },
         { id: "OFG4", name: "OFG", creditos: 10, color: COLORS.general, req: [] }
     ]},
     { title: "Semestre 6", ramos: [
-        { id: "ADP2011", name: "Operaciones Serv. Púb.", creditos: 10, color: COLORS.profesional, req: ["EYP1010"] },
-        { id: "ADP201G", name: "Eval. Programas Púb.", creditos: 10, color: COLORS.profesional, req: ["ADP004G"] },
-        { id: "ADP202G", name: "Admin. Financiera", creditos: 10, color: COLORS.profesional, req: ["EAE11A", "ADP001E"] },
+        { id: "ADP2011", name: "Operaciones de Servicios Públicos", creditos: 10, color: COLORS.profesional, req: ["EYP1010"] },
+        { id: "ADP201G", name: "Evaluación de Programas Públicos", creditos: 10, color: COLORS.profesional, req: ["ADP004G"] },
+        { id: "ADP202G", name: "Administración Financiera del Estado", creditos: 10, color: COLORS.profesional, req: ["EAE11A", "ADP001E"] },
         { id: "MIN1", name: "Minor", creditos: 10, color: COLORS.minor, req: [] },
         { id: "OFG5", name: "OFG", creditos: 10, color: COLORS.general, req: [] }
     ]},
     // AÑO 4
     { title: "Semestre 7", ramos: [
-        { id: "ADP2021", name: "Gestión Innovación", creditos: 10, color: COLORS.profesional, req: [] },
-        { id: "ADP201E", name: "Gestión Personas", creditos: 10, color: COLORS.profesional, req: ["ADP001S"] },
+        { id: "ADP2021", name: "Gestión de Innovación y Tecnología", creditos: 10, color: COLORS.profesional, req: [] },
+        { id: "ADP201E", name: "Gestión de Personas en el SEctor Público", creditos: 10, color: COLORS.profesional, req: ["ADP001S"] },
         { id: "MIN2", name: "Minor", creditos: 10, color: COLORS.minor, req: [] },
         { id: "MIN3", name: "Minor", creditos: 10, color: COLORS.minor, req: [] },
         { id: "OFG6", name: "OFG", creditos: 10, color: COLORS.general, req: [] }
     ]},
     { title: "Semestre 8", ramos: [
         { id: "ADP2031", name: "Transformación Digital", creditos: 10, color: COLORS.profesional, req: [] },
-        { id: "ADP203G", name: "Capstone (Proyectos)", creditos: 10, color: COLORS.profesional, req: ["ADP2011"] },
+        { id: "ADP203G", name: "Gestión de Proyectos Públicos (Capstone)", creditos: 10, color: COLORS.profesional, req: ["ADP2011"] },
         { id: "MIN4", name: "Minor", creditos: 10, color: COLORS.minor, req: [] },
         { id: "MIN5", name: "Minor", creditos: 10, color: COLORS.minor, req: [] },
         { id: "OFG7", name: "OFG", creditos: 10, color: COLORS.general, req: [] }
     ]},
     // AÑO 5
     { title: "Semestre 9", ramos: [
-        { id: "ADP301G", name: "Ética y PP", creditos: 5, color: COLORS.default, req: [] },
-        { id: "ADP302G", name: "Probidad y Transp.", creditos: 5, color: COLORS.default, req: [] },
+        { id: "ADP301G", name: "Ética y Políticas Públicas", creditos: 5, color: COLORS.default, req: [] },
+        { id: "ADP302G", name: "Probidad y Transparencia", creditos: 5, color: COLORS.default, req: [] },
         { id: "ADP301E", name: "Habilidades Directivas", creditos: 10, color: COLORS.default, req: [] },
         { id: "ADP303G", name: "Auditoría Gubernamental", creditos: 10, color: COLORS.default, req: [] },
-        { id: "OPROF", name: "Opt. Profundización", creditos: 20, color: COLORS.default, req: [] }
+        { id: "OPROF", name: "Optativo de Profundización", creditos: 20, color: COLORS.default, req: [] }
     ]},
     { title: "Semestre 10", ramos: [
         { id: "ADP306G", name: "Práctica Profesional", creditos: 35, color: COLORS.default, req: ["ADP203G"] },
@@ -249,3 +250,4 @@ function actualizarEstadoVisual() {
 
 // Iniciar al cargar
 document.addEventListener('DOMContentLoaded', initMalla);
+
