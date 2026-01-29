@@ -15,7 +15,7 @@ const malla = [
         { id: "ADP002G", name: "Gestión Pública I", creditos: 10, color: COLORS.default, req: [] },
         { id: "ADP001G", name: "Justicia y Bien Común", creditos: 10, color: COLORS.default, req: [] },
         { id: "FIL2001", name: "Filosofía ¿Para qué?", creditos: 10, color: COLORS.general, req: [] },
-        { id: "VRA100C", name: "Exámen Comunicación Escrita", creditos: 0, color: COLORS.default, req: [] }, 
+        { id: "VRA100C", name: "Examen Comunicación Escrita", creditos: 0, color: COLORS.default, req: [] }, 
         { id: "VRA2000", name: "English Test Alte 2", creditos: 0, color: COLORS.default, req: [] },
         { id: "VRA4000", name: "Integridad Académica en la UC", creditos: 0, color: COLORS.default, req: [] }
     ]},
@@ -265,4 +265,5 @@ function actualizarEstadoVisual() {
 
 // Iniciar al cargar
 document.addEventListener('DOMContentLoaded', initMalla);
+
 
