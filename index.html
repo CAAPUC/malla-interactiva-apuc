@@ -9,17 +9,26 @@
 <body>
     <header>
         <h1>Malla Administración Pública UC</h1>
-        <p>Haz clic en los ramos para aprobarlos y desbloquear los siguientes.</p>
+        
+        <div class="progress-container">
+            <span>Avance total: <span id="porcentaje">0%</span></span>
+            <div class="progress-bar">
+                <div class="progress-fill" id="barra"></div>
+            </div>
+        </div>
+
         <div class="referencias">
-            <span style="background: #a6bec1">Formación General</span>
-            <span style="background: #815db7">Gestión y Políticas</span>
-            <span style="background: #df97b9">Minor</span>
-            <span style="background: #b57edc">Plan Común/Otros</span>
+            <div class="ref-item"><span class="dot" style="background: #a6bec1"></span>F. General</div>
+            <div class="ref-item"><span class="dot" style="background: #815db7"></span>Gestión/Políticas</div>
+            <div class="ref-item"><span class="dot" style="background: #df97b9"></span>Minor</div>
+            <div class="ref-item"><span class="dot" style="background: #b57edc"></span>Plan Común</div>
         </div>
     </header>
 
-    <div id="malla-container">
-        </div>
+    <div class="scroll-wrapper">
+        <div id="malla-container">
+            </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
