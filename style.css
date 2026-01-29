@@ -184,3 +184,22 @@ input:checked + .slider::before {
     filter: brightness(1);
     box-shadow: 0 0 8px rgba(255,255,255,0.6);
 }
+/* Filosofía + Optativos FG */
+.ramo-fg {
+    background-color: #a6bec1 !important;
+}
+
+/* Gestión / administración avanzada */
+.ramo-gestion {
+    background-color: #815db7 !important;
+}
+
+/* Minor */
+.ramo-minor {
+    background-color: #df97b9 !important;
+}
+
+/* Resto */
+.ramo-base {
+    background-color: #b57edc !important;
+}
