@@ -51,7 +51,41 @@ semestres.forEach(sem => {
 
   contenedor.appendChild(col);
 });
+// ---------------- COLORES POR RAMO ----------------
 
+// Filosofía + Optativos FG
+const fg = ["FIL2001"];
+if (c.code.startsWith("FG")) {
+    div.classList.add("ramo-fg");
+}
+else if (fg.includes(c.code)) {
+    div.classList.add("ramo-fg");
+}
+
+// Gestión / administración avanzada
+else if ([
+    "EAA1210", // Contabilidad
+    "ADP201C",
+    "ADP201D",
+    "ADP201G",
+    "ADP202G",
+    "ADP202I",
+    "ADP201E",
+    "ADP203I",
+    "ADP203G"
+].includes(c.code)) {
+    div.classList.add("ramo-gestion");
+}
+
+// Minor
+else if (c.name.toLowerCase().includes("minor")) {
+    div.classList.add("ramo-minor");
+}
+
+// Resto
+else {
+    div.classList.add("ramo-base");
+}
 function drawLines() {
   svg.innerHTML = "";
 
@@ -102,3 +136,4 @@ setTimeout(() => {
 
 document.getElementById("dark-toggle").onchange = e =>
   document.body.classList.toggle("dark", e.target.checked);
+
