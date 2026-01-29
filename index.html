@@ -1,115 +1,37 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Malla Interactiva APUC</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malla Administración Pública UC</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
-  <h1>Administración Pública - UC</h1>
-  
-  <div class="leyenda">
-      <span style="background: #a6bec1">Formación General</span>
-      <span style="background: #815db7">Gestión y Políticas</span>
-      <span style="background: #df97b9">Minor</span>
-      <span style="background: #b57edc">Plan Común/Otros</span>
-  </div>
 
-  <div class="malla-grid">
-    
-    <div class="semestre" id="sem1">
-      <h2>1° Semestre</h2>
-      <div class="ramo comun" id="MAT1000" onclick="aprobar('MAT1000')">Precálculo</div>
-      <div class="ramo comun" id="ICP101" onclick="aprobar('ICP101')">Intro. Ciencia Política</div>
-      <div class="ramo comun" id="ADP002G" onclick="aprobar('ADP002G')">Gestión Pública I</div>
-      <div class="ramo comun" id="ADP001G" onclick="aprobar('ADP001G')">Justicia y Bien Común</div>
-      <div class="ramo general" id="FIL2001" onclick="aprobar('FIL2001')">Filosofía: ¿Para qué?</div>
+    <header>
+        <h1>Malla Administración Pública UC</h1>
+        
+        <div class="progress-container">
+            <div class="progress-text">Avance: <span id="porcentaje">0%</span></div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="barra"></div>
+            </div>
+        </div>
+
+        <div class="referencias">
+            <div class="ref-item"><span class="dot" style="background: #a6bec1"></span>F. General</div>
+            <div class="ref-item"><span class="dot" style="background: #815db7"></span>Gestión/Políticas</div>
+            <div class="ref-item"><span class="dot" style="background: #df97b9"></span>Minor</div>
+            <div class="ref-item"><span class="dot" style="background: #b57edc"></span>Plan Común</div>
+        </div>
+    </header>
+
+    <div class="scroll-wrapper">
+        <div id="malla-container"></div>
     </div>
 
-    <div class="semestre" id="sem2">
-      <h2>2° Semestre</h2>
-      <div class="ramo comun bloqueado" id="MAT1100" onclick="aprobar('MAT1100')">Cálculo I</div>
-      <div class="ramo comun" id="EAE11A" onclick="aprobar('EAE11A')">Intro. Microeconomía</div>
-      <div class="ramo comun" id="ADP001S" onclick="aprobar('ADP001S')">Comp. Organizacional</div>
-      <div class="ramo comun" id="ADP001D" onclick="aprobar('ADP001D')">Intro. al Derecho</div>
-      <div class="ramo general" id="OFG1" onclick="aprobar('OFG1')">Formación General</div>
-    </div>
+    <script src="script.js"></script>
 
-    <div class="semestre" id="sem3">
-      <h2>3° Semestre</h2>
-      <div class="ramo comun bloqueado" id="EYP1010" onclick="aprobar('EYP1010')">Probabilidad y Est.</div>
-      <div class="ramo comun" id="ADP001E" onclick="aprobar('ADP001E')">Fund. Macroeconomía</div>
-      <div class="ramo comun" id="ADP003G" onclick="aprobar('ADP003G')">Gestión Pública II</div>
-      <div class="ramo comun" id="GOB1001" onclick="aprobar('GOB1001')">Intro. Políticas Públicas</div>
-      <div class="ramo general" id="OFG2" onclick="aprobar('OFG2')">Formación General</div>
-    </div>
-
-    <div class="semestre" id="sem4">
-      <h2>4° Semestre</h2>
-      <div class="ramo comun bloqueado" id="ADP004G" onclick="aprobar('ADP004G')">Métodos Aplicados</div>
-      <div class="ramo comun bloqueado" id="ADP002E" onclick="aprobar('ADP002E')">Econ. Sector Público</div>
-      <div class="ramo comun" id="ICP103" onclick="aprobar('ICP103')">Intro. Pol. Comparada</div>
-      <div class="ramo comun" id="ADP002D" onclick="aprobar('ADP002D')">Inst. y Garantías</div>
-      <div class="ramo general" id="OFG3" onclick="aprobar('OFG3')">Formación General</div>
-    </div>
-
-    <div class="semestre" id="sem5">
-      <h2>5° Semestre</h2>
-      <div class="ramo comun" id="ADP005G" onclick="aprobar('ADP005G')">Evidencias Gestión P.</div>
-      <div class="ramo profesional" id="EAA1210" onclick="aprobar('EAA1210')">Contabilidad I</div>
-      <div class="ramo profesional bloqueado" id="ADP201C" onclick="aprobar('ADP201C')">Pol. en Gestión y PP</div>
-      <div class="ramo profesional bloqueado" id="ADP201D" onclick="aprobar('ADP201D')">Régimen Jurídico</div>
-      <div class="ramo general" id="OFG4" onclick="aprobar('OFG4')">Formación General</div>
-    </div>
-
-    <div class="semestre" id="sem6">
-      <h2>6° Semestre</h2>
-      <div class="ramo profesional bloqueado" id="ADP2011" onclick="aprobar('ADP2011')">Operaciones Serv. Púb.</div>
-      <div class="ramo profesional bloqueado" id="ADP201G" onclick="aprobar('ADP201G')">Eval. Programas Púb.</div>
-      <div class="ramo profesional bloqueado" id="ADP202G" onclick="aprobar('ADP202G')">Admin. Financiera</div>
-      <div class="ramo minor" id="MIN1" onclick="aprobar('MIN1')">Minor</div>
-      <div class="ramo general" id="OFG5" onclick="aprobar('OFG5')">Formación General</div>
-    </div>
-
-    <div class="semestre" id="sem7">
-      <h2>7° Semestre</h2>
-      <div class="ramo profesional" id="ADP2021" onclick="aprobar('ADP2021')">Gestión Innovación</div>
-      <div class="ramo profesional bloqueado" id="ADP201E" onclick="aprobar('ADP201E')">Gestión Personas</div>
-      <div class="ramo minor" id="MIN2" onclick="aprobar('MIN2')">Minor</div>
-      <div class="ramo minor" id="MIN3" onclick="aprobar('MIN3')">Minor</div>
-      <div class="ramo general" id="OFG6" onclick="aprobar('OFG6')">Formación General</div>
-    </div>
-
-    <div class="semestre" id="sem8">
-      <h2>8° Semestre</h2>
-      <div class="ramo profesional" id="ADP2031" onclick="aprobar('ADP2031')">Transformación Digital</div>
-      <div class="ramo profesional bloqueado" id="ADP203G" onclick="aprobar('ADP203G')">Capstone (Proyectos)</div>
-      <div class="ramo minor" id="MIN4" onclick="aprobar('MIN4')">Minor</div>
-      <div class="ramo minor" id="MIN5" onclick="aprobar('MIN5')">Minor</div>
-      <div class="ramo general" id="OFG7" onclick="aprobar('OFG7')">Formación General</div>
-    </div>
-    
-     <div class="semestre" id="sem9">
-        <h2>9° Semestre</h2>
-        <div class="ramo comun" id="ADP301G" onclick="aprobar('ADP301G')">Ética y PP</div>
-        <div class="ramo comun" id="ADP302G" onclick="aprobar('ADP302G')">Probidad y Transp.</div>
-        <div class="ramo comun" id="ADP301E" onclick="aprobar('ADP301E')">Habilidades Directivas</div>
-        <div class="ramo comun" id="ADP303G" onclick="aprobar('ADP303G')">Auditoría Gub.</div>
-        <div class="ramo comun" id="OPROF" onclick="aprobar('OPROF')">Opt. Profundización</div>
-      </div>
-  
-      <div class="semestre" id="sem10">
-        <h2>10° Semestre</h2>
-        <div class="ramo comun bloqueado" id="ADP306G" onclick="aprobar('ADP306G')">Práctica Profesional</div>
-        <div class="ramo comun" id="ADP305G" onclick="aprobar('ADP305G')">Entorno y Relación</div>
-        <div class="ramo comun" id="ADP304G" onclick="aprobar('ADP304G')">Ética Profesional</div>
-      </div>
-
-  </div>
-
-  <script src="script.js"></script>
 </body>
 </html>
