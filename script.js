@@ -1,14 +1,13 @@
-// Colores definidos en el PDF
+// --- DATOS DE LA CARRERA ---
 const COLORS = {
-    general: "#a6bec1",       // Filosofía y OFG
-    profesional: "#815db7",   // Contabilidad, Gestión, etc.
-    minor: "#df97b9",         // Minors
-    default: "#b57edc"        // Resto de ramos
+    general: "#a6bec1",       
+    profesional: "#815db7",   
+    minor: "#df97b9",         
+    default: "#b57edc"        
 };
 
-// DATA MAESTRA: Contiene toda la info (Créditos, Prerrequisitos, ID, Nombre)
 const malla = [
-    // --- AÑO 1 ---
+    // AÑO 1
     { title: "Semestre 1", ramos: [
         { id: "MAT1000", name: "Precálculo", creditos: 10, color: COLORS.default, req: [] },
         { id: "ICP101", name: "Intro. Ciencia Política", creditos: 10, color: COLORS.default, req: [] },
@@ -24,7 +23,7 @@ const malla = [
         { id: "ADP001D", name: "Intro. al Derecho", creditos: 10, color: COLORS.default, req: [] },
         { id: "OFG1", name: "OFG", creditos: 10, color: COLORS.general, req: [] }
     ]},
-    // --- AÑO 2 ---
+    // AÑO 2
     { title: "Semestre 3", ramos: [
         { id: "EYP1010", name: "Probabilidad y Est.", creditos: 10, color: COLORS.default, req: ["MAT1100"] },
         { id: "ADP001E", name: "Fund. Macroeconomía", creditos: 10, color: COLORS.default, req: [] },
@@ -39,7 +38,7 @@ const malla = [
         { id: "ADP002D", name: "Inst. y Garantías", creditos: 10, color: COLORS.default, req: [] },
         { id: "OFG3", name: "OFG", creditos: 10, color: COLORS.general, req: [] }
     ]},
-    // --- AÑO 3 ---
+    // AÑO 3
     { title: "Semestre 5", ramos: [
         { id: "ADP005G", name: "Evidencias Gestión P.", creditos: 10, color: COLORS.default, req: [] },
         { id: "EAA1210", name: "Contabilidad I", creditos: 10, color: COLORS.profesional, req: [] },
@@ -54,7 +53,7 @@ const malla = [
         { id: "MIN1", name: "Minor", creditos: 10, color: COLORS.minor, req: [] },
         { id: "OFG5", name: "OFG", creditos: 10, color: COLORS.general, req: [] }
     ]},
-    // --- AÑO 4 ---
+    // AÑO 4
     { title: "Semestre 7", ramos: [
         { id: "ADP2021", name: "Gestión Innovación", creditos: 10, color: COLORS.profesional, req: [] },
         { id: "ADP201E", name: "Gestión Personas", creditos: 10, color: COLORS.profesional, req: ["ADP001S"] },
@@ -69,7 +68,7 @@ const malla = [
         { id: "MIN5", name: "Minor", creditos: 10, color: COLORS.minor, req: [] },
         { id: "OFG7", name: "OFG", creditos: 10, color: COLORS.general, req: [] }
     ]},
-    // --- AÑO 5 ---
+    // AÑO 5
     { title: "Semestre 9", ramos: [
         { id: "ADP301G", name: "Ética y PP", creditos: 5, color: COLORS.default, req: [] },
         { id: "ADP302G", name: "Probidad y Transp.", creditos: 5, color: COLORS.default, req: [] },
@@ -84,16 +83,16 @@ const malla = [
     ]}
 ];
 
-// Estado global de aprobados
+// Variable de estado
 let aprobados = [];
 
-// Función para convertir números a romanos
+// Convertir número a romano
 function toRoman(num) {
     const roman = { 1: 'I', 2: 'II', 3: 'III', 4: 'IV', 5: 'V', 6: 'VI', 7: 'VII', 8: 'VIII', 9: 'IX', 10: 'X' };
     return roman[num] || num;
 }
 
-// 1. Cargar datos del LocalStorage
+// Cargar LocalStorage
 function cargarProgreso() {
     const data = localStorage.getItem('mallaAprobadosAPUC');
     if (data) {
@@ -101,24 +100,22 @@ function cargarProgreso() {
     }
 }
 
-// 2. Guardar datos en LocalStorage
+// Guardar LocalStorage
 function guardarProgreso() {
     localStorage.setItem('mallaAprobadosAPUC', JSON.stringify(aprobados));
 }
 
-// 3. Inicializar la malla (Dibujar HTML)
+// --- DIBUJAR MALLA ---
 function initMalla() {
     const container = document.getElementById('malla-container');
-    container.innerHTML = '';
-    
-    // Cargar lo guardado antes de dibujar
+    container.innerHTML = ''; // Limpia cualquier HTML previo para evitar duplicados
     cargarProgreso();
 
-    // Agrupar por Años
+    // Loop por Años (de 2 en 2 semestres)
     for (let i = 0; i < malla.length; i += 2) {
         const yearIndex = (i / 2) + 1;
         
-        // Columna AÑO
+        // Crear columna Año
         const anioCol = document.createElement('div');
         anioCol.className = 'anio-col';
         
@@ -127,10 +124,11 @@ function initMalla() {
         anioHeader.innerText = `Año ${yearIndex}`;
         anioCol.appendChild(anioHeader);
 
-        // Wrapper Semestres
+        // Crear contenedor semestres
         const semestresWrapper = document.createElement('div');
         semestresWrapper.className = 'semestres-wrapper';
 
+        // Loop semestres internos
         for (let j = i; j < i + 2 && j < malla.length; j++) {
             const semData = malla[j];
             const semCol = document.createElement('div');
@@ -147,14 +145,12 @@ function initMalla() {
             semData.ramos.forEach(ramo => {
                 const rEl = document.createElement('div');
                 rEl.className = 'ramo';
-                rEl.id = ramo.id;
-                rEl.innerText = `${ramo.name}`; // Solo nombre por limpieza visual
-                // Guardamos info útil en atributos data
-                rEl.dataset.creditos = ramo.creditos;
+                rEl.id = ramo.id; // Asignamos ID para que JS lo encuentre
+                rEl.innerText = ramo.name;
                 rEl.style.backgroundColor = ramo.color;
                 
-                // Evento Click
-                rEl.onclick = () => toggleRamo(ramo.id);
+                // --- AQUÍ ESTÁ LA CLAVE DEL CLIC ---
+                rEl.onclick = function() { toggleRamo(ramo.id); };
                 
                 ramosList.appendChild(rEl);
             });
@@ -162,27 +158,30 @@ function initMalla() {
             semCol.appendChild(ramosList);
             semestresWrapper.appendChild(semCol);
         }
-
         anioCol.appendChild(semestresWrapper);
         container.appendChild(anioCol);
     }
-    
-    // Una vez dibujado, actualizamos colores y bloqueos
     actualizarEstadoVisual();
 }
 
-// 4. Lógica al hacer clic
+// --- LÓGICA DE CLIC ---
 function toggleRamo(id) {
     const el = document.getElementById(id);
-    if (el.classList.contains('bloqueado')) return; // No hacer nada si está bloqueado
+    
+    // Si está bloqueado, no hacemos nada
+    if (el.classList.contains('bloqueado')) {
+        // Efecto visual de "error" opcional
+        el.style.transform = "translateX(5px)";
+        setTimeout(() => el.style.transform = "none", 100);
+        return; 
+    }
 
     if (aprobados.includes(id)) {
-        // Si ya estaba aprobado, lo sacamos
+        // Desaprobar
         aprobados = aprobados.filter(r => r !== id);
-        // Opcional: Limpiar dependencias futuras (si desapruebo Cálculo, se desaprueba Ecuaciones)
-        limpiarDependencias(id);
+        limpiarDependencias(id); // Si quito Cálculo, se quita Ecuaciones
     } else {
-        // Si no estaba, lo agregamos
+        // Aprobar
         aprobados.push(id);
     }
 
@@ -190,7 +189,7 @@ function toggleRamo(id) {
     actualizarEstadoVisual();
 }
 
-// Función recursiva para desmarcar ramos si desmarco un prerrequisito
+// Desmarcar recursivo
 function limpiarDependencias(idPadre) {
     malla.forEach(sem => {
         sem.ramos.forEach(r => {
@@ -202,7 +201,7 @@ function limpiarDependencias(idPadre) {
     });
 }
 
-// 5. Motor de validación visual y Créditos
+// --- ACTUALIZAR COLORES Y CANDADOS ---
 function actualizarEstadoVisual() {
     let creditosAcumulados = 0;
     let totalCreditosMalla = 0;
@@ -216,36 +215,37 @@ function actualizarEstadoVisual() {
             const reqCumplidos = r.req.every(reqId => aprobados.includes(reqId));
 
             if (!reqCumplidos) {
-                // Bloqueado
+                // BLOQUEADO
                 el.classList.add('bloqueado');
                 el.classList.remove('aprobado');
-                el.title = `Falta: ${r.req.join(', ')}`;
+                el.innerText = "🔒 " + r.name; // Agrega candado visual
+                el.title = `Falta aprobar: ${r.req.join(', ')}`;
             } else {
-                // Desbloqueado
+                // DESBLOQUEADO
                 el.classList.remove('bloqueado');
                 
-                // ¿Está aprobado?
                 if (aprobados.includes(r.id)) {
+                    // APROBADO
                     el.classList.add('aprobado');
+                    el.innerText = "✅ " + r.name; // Agrega check visual
                     creditosAcumulados += r.creditos;
                 } else {
+                    // DISPONIBLE (Pendiente)
                     el.classList.remove('aprobado');
+                    el.innerText = r.name; // Texto normal
                 }
                 el.title = `Créditos: ${r.creditos}`;
             }
         });
     });
 
-    // Actualizar Barra de Progreso
+    // Actualizar Barra
     const porcentaje = Math.round((creditosAcumulados / totalCreditosMalla) * 100);
-    
-    // Actualizamos el DOM (asegúrate de que estos IDs existan en tu HTML)
-    const porcText = document.getElementById('porcentaje');
     const barra = document.getElementById('barra');
-    
-    if(porcText) porcText.innerText = `${porcentaje}% (${creditosAcumulados} Cr.)`;
+    const texto = document.getElementById('porcentaje');
     if(barra) barra.style.width = `${porcentaje}%`;
+    if(texto) texto.innerText = `${porcentaje}% (${creditosAcumulados} Cr.)`;
 }
 
-// Iniciar cuando carga la página
+// Iniciar al cargar
 document.addEventListener('DOMContentLoaded', initMalla);
