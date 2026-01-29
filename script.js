@@ -1,3 +1,4 @@
+
 // --- DATOS DE LA CARRERA ---
 const COLORS = {
     general: "#a6bec1",       
@@ -14,7 +15,7 @@ const malla = [
         { id: "ADP002G", name: "Gestión Pública I", creditos: 10, color: COLORS.default, req: [] },
         { id: "ADP001G", name: "Justicia y Bien Común", creditos: 10, color: COLORS.default, req: [] },
         { id: "FIL2001", name: "Filosofía ¿Para qué?", creditos: 10, color: COLORS.general, req: [] },
-        { id: "VRA100C", name: "Exámen Comunicación Escrita", creditos: 0, color: COLORS.default, req: [] },
+        { id: "VRA100C", name: "Exámen Comunicación Escrita", creditos: 0, color: COLORS.default, req: [] }, 
         { id: "VRA2000", name: "English Test Alte 2", creditos: 0, color: COLORS.default, req: [] }
     ]},
     { title: "Semestre 2", ramos: [
@@ -35,8 +36,8 @@ const malla = [
     { title: "Semestre 4", ramos: [
         { id: "ADP004G", name: "Métodos Aplicados a la Gestión Pública", creditos: 10, color: COLORS.default, req: ["EYP1010"] },
         { id: "ADP002E", name: "Economía del Sector Público", creditos: 10, color: COLORS.default, req: ["ADP001E"] },
-        { id: "ICP103", name: "Introducción a la Políica Comparada", creditos: 10, color: COLORS.default, req: [] },
-        { id: "ADP002D", name: "Instituiones y Garantías del EStado", creditos: 10, color: COLORS.default, req: [] },
+        { id: "ICP103", name: "Introducción a la Política Comparada", creditos: 10, color: COLORS.default, req: [] },
+        { id: "ADP002D", name: "Instituciones y Garantías del Estado", creditos: 10, color: COLORS.default, req: [] },
         { id: "OFG3", name: "OFG", creditos: 10, color: COLORS.general, req: [] }
     ]},
     // AÑO 3
@@ -57,7 +58,7 @@ const malla = [
     // AÑO 4
     { title: "Semestre 7", ramos: [
         { id: "ADP2021", name: "Gestión de Innovación y Tecnología", creditos: 10, color: COLORS.profesional, req: [] },
-        { id: "ADP201E", name: "Gestión de Personas en el SEctor Público", creditos: 10, color: COLORS.profesional, req: ["ADP001S"] },
+        { id: "ADP201E", name: "Gestión de Personas en el Sector Público", creditos: 10, color: COLORS.profesional, req: ["ADP001S"] },
         { id: "MIN2", name: "Minor", creditos: 10, color: COLORS.minor, req: [] },
         { id: "MIN3", name: "Minor", creditos: 10, color: COLORS.minor, req: [] },
         { id: "OFG6", name: "OFG", creditos: 10, color: COLORS.general, req: [] }
@@ -84,8 +85,12 @@ const malla = [
     ]}
 ];
 
-// Variable de estado
+// Estado de ramos aprobados
 let aprobados = [];
+
+// Mapa auxiliar para encontrar nombres por ID rápidamente (Para el tooltip)
+const nombresRamos = {};
+malla.forEach(sem => sem.ramos.forEach(r => nombresRamos[r.id] = r.name));
 
 // Convertir número a romano
 function toRoman(num) {
@@ -106,17 +111,29 @@ function guardarProgreso() {
     localStorage.setItem('mallaAprobadosAPUC', JSON.stringify(aprobados));
 }
 
+// --- FUNCIÓN GENERAR TOOLTIP (Información Flotante) ---
+function generarTooltip(ramo) {
+    let texto = `Sigla: ${ramo.id}\nCréditos: ${ramo.creditos}`;
+    
+    if (ramo.req.length > 0) {
+        // Busca los nombres reales de los prerrequisitos
+        const nombresReq = ramo.req.map(id => nombresRamos[id] || id).join(', ');
+        texto += `\nRequisito: ${nombresReq}`;
+    } else {
+        texto += `\nRequisito: No tiene`;
+    }
+    return texto;
+}
+
 // --- DIBUJAR MALLA ---
 function initMalla() {
     const container = document.getElementById('malla-container');
-    container.innerHTML = ''; // Limpia cualquier HTML previo para evitar duplicados
+    container.innerHTML = '';
     cargarProgreso();
 
     // Loop por Años (de 2 en 2 semestres)
     for (let i = 0; i < malla.length; i += 2) {
         const yearIndex = (i / 2) + 1;
-        
-        // Crear columna Año
         const anioCol = document.createElement('div');
         anioCol.className = 'anio-col';
         
@@ -125,11 +142,9 @@ function initMalla() {
         anioHeader.innerText = `Año ${yearIndex}`;
         anioCol.appendChild(anioHeader);
 
-        // Crear contenedor semestres
         const semestresWrapper = document.createElement('div');
         semestresWrapper.className = 'semestres-wrapper';
 
-        // Loop semestres internos
         for (let j = i; j < i + 2 && j < malla.length; j++) {
             const semData = malla[j];
             const semCol = document.createElement('div');
@@ -146,11 +161,14 @@ function initMalla() {
             semData.ramos.forEach(ramo => {
                 const rEl = document.createElement('div');
                 rEl.className = 'ramo';
-                rEl.id = ramo.id; // Asignamos ID para que JS lo encuentre
+                rEl.id = ramo.id;
                 rEl.innerText = ramo.name;
                 rEl.style.backgroundColor = ramo.color;
                 
-                // --- AQUÍ ESTÁ LA CLAVE DEL CLIC ---
+                // --- ACTIVAMOS EL TOOLTIP ---
+                rEl.setAttribute('data-info', generarTooltip(ramo));
+                
+                // --- ACTIVAMOS EL CLIC ---
                 rEl.onclick = function() { toggleRamo(ramo.id); };
                 
                 ramosList.appendChild(rEl);
@@ -178,11 +196,9 @@ function toggleRamo(id) {
     }
 
     if (aprobados.includes(id)) {
-        // Desaprobar
         aprobados = aprobados.filter(r => r !== id);
-        limpiarDependencias(id); // Si quito Cálculo, se quita Ecuaciones
+        limpiarDependencias(id);
     } else {
-        // Aprobar
         aprobados.push(id);
     }
 
@@ -219,8 +235,7 @@ function actualizarEstadoVisual() {
                 // BLOQUEADO
                 el.classList.add('bloqueado');
                 el.classList.remove('aprobado');
-                el.innerText = "🔒 " + r.name; // Agrega candado visual
-                el.title = `Falta aprobar: ${r.req.join(', ')}`;
+                if (!el.innerText.includes("🔒")) el.innerText = "🔒 " + r.name;
             } else {
                 // DESBLOQUEADO
                 el.classList.remove('bloqueado');
@@ -228,14 +243,13 @@ function actualizarEstadoVisual() {
                 if (aprobados.includes(r.id)) {
                     // APROBADO
                     el.classList.add('aprobado');
-                    el.innerText = "✅ " + r.name; // Agrega check visual
+                    if (!el.innerText.includes("✅")) el.innerText = "✅ " + r.name;
                     creditosAcumulados += r.creditos;
                 } else {
                     // DISPONIBLE (Pendiente)
                     el.classList.remove('aprobado');
                     el.innerText = r.name; // Texto normal
                 }
-                el.title = `Créditos: ${r.creditos}`;
             }
         });
     });
@@ -250,5 +264,3 @@ function actualizarEstadoVisual() {
 
 // Iniciar al cargar
 document.addEventListener('DOMContentLoaded', initMalla);
-
-
