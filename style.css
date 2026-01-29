@@ -6,30 +6,39 @@ body {
     color: #333;
 }
 
-header { text-align: center; margin-bottom: 20px; }
+header { text-align: center; margin-bottom: 25px; }
 
-/* Barra de Progreso */
+/* --- BARRA DE PROGRESO --- */
 .progress-container {
     max-width: 600px;
     margin: 0 auto 20px;
     text-align: center;
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+.progress-text {
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 8px;
+    font-size: 1.1em;
 }
 .progress-bar {
-    height: 14px;
+    height: 16px;
     background: #e0e0e0;
-    border-radius: 7px;
+    border-radius: 8px;
     overflow: hidden;
-    margin-top: 5px;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+    position: relative;
 }
 .progress-fill {
     height: 100%;
     background: linear-gradient(90deg, #00c853, #64dd17);
     width: 0%;
-    transition: width 0.4s ease;
+    transition: width 0.4s ease-out;
 }
 
-/* Referencias */
+/* Referencias (Bolitas de colores) */
 .referencias {
     display: flex;
     justify-content: center;
@@ -39,10 +48,10 @@ header { text-align: center; margin-bottom: 20px; }
     margin-top: 10px;
 }
 .ref-item { display: flex; align-items: center; gap: 6px; }
-.dot { width: 12px; height: 12px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.1); }
+.dot { width: 12px; height: 12px; border-radius: 50%; }
 
-/* CONTENEDOR GRID */
-.scroll-wrapper { overflow-x: auto; padding-bottom: 20px; }
+/* Layout General */
+.scroll-wrapper { overflow-x: auto; padding-bottom: 30px; }
 #malla-container {
     display: flex;
     gap: 20px;
@@ -51,44 +60,42 @@ header { text-align: center; margin-bottom: 20px; }
     padding: 0 10px;
 }
 
-/* COLUMNAS */
+/* Columnas de Año y Semestre */
 .anio-col {
     background: white;
     border-radius: 8px;
-    overflow: hidden;
+    /* 'visible' es vital para que el tooltip no se corte si sale del cuadro */
+    overflow: visible; 
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     display: flex;
     flex-direction: column;
 }
-
 .anio-header {
     background: #263238;
     color: white;
     text-align: center;
-    padding: 8px;
+    padding: 10px;
     font-weight: bold;
-    font-size: 0.9em;
     text-transform: uppercase;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
-
 .semestres-wrapper { display: flex; border-top: 1px solid #eceff1; }
-
 .semestre-col {
-    width: 145px;
+    width: 150px;
     display: flex;
     flex-direction: column;
     border-right: 1px solid #eceff1;
 }
 .semestre-col:last-child { border-right: none; }
-
 .semestre-header {
     background: #546e7a;
     color: white;
     text-align: center;
     font-size: 0.8em;
-    padding: 4px;
+    padding: 5px;
+    font-weight: 600;
 }
-
 .ramos-list {
     padding: 8px;
     display: flex;
@@ -97,10 +104,10 @@ header { text-align: center; margin-bottom: 20px; }
     flex-grow: 1;
 }
 
-/* TARJETA RAMO */
+/* TARJETA DE RAMO */
 .ramo {
-    padding: 6px;
-    border-radius: 5px;
+    padding: 5px;
+    border-radius: 6px;
     text-align: center;
     font-size: 0.75em;
     font-weight: 600;
@@ -111,39 +118,79 @@ header { text-align: center; margin-bottom: 20px; }
     align-items: center;
     justify-content: center;
     line-height: 1.2;
-    transition: all 0.2s ease;
+    transition: transform 0.2s;
     user-select: none;
-    position: relative;
+    position: relative; /* Necesario para posicionar el tooltip */
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* ESTADO: PENDIENTE (Normal) */
-.ramo { 
-    filter: brightness(0.85) grayscale(20%); 
-    opacity: 0.95;
-}
 .ramo:hover {
-    transform: scale(1.03);
-    z-index: 10;
-    filter: brightness(1);
+    transform: scale(1.05);
+    z-index: 100; /* Pone el ramo encima de los otros al pasar el mouse */
 }
 
-/* ESTADO: APROBADO (Tachado/Check) */
+/* --- TOOLTIP FLOTANTE (Aquí ocurre la magia) --- */
+.ramo::after {
+    content: attr(data-info); /* Lee el texto generado por JS */
+    visibility: hidden;
+    opacity: 0;
+    width: 200px;
+    background-color: #333; /* Fondo negro */
+    color: #fff;
+    text-align: left;
+    border-radius: 6px;
+    padding: 10px;
+    position: absolute;
+    z-index: 101;
+    bottom: 110%; /* Lo ubica justo arriba del ramo */
+    left: 50%;
+    transform: translateX(-50%); /* Lo centra */
+    
+    /* Fuente y sombra */
+    font-size: 0.85rem;
+    font-weight: normal;
+    white-space: pre-wrap; /* Respeta los saltos de línea */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: opacity 0.3s;
+    pointer-events: none; /* El mouse ignora el cuadro negro */
+}
+
+/* Triangulito decorativo abajo del tooltip */
+.ramo::before {
+    content: "";
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+    transition: opacity 0.3s;
+}
+
+/* Mostrar tooltip al pasar el mouse */
+.ramo:hover::after,
+.ramo:hover::before {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* ESTADOS VISUALES */
+.ramo { filter: brightness(0.85) grayscale(20%); opacity: 0.95; }
+
 .ramo.aprobado {
     filter: brightness(1) grayscale(0%) !important;
     opacity: 1 !important;
-    box-shadow: 0 0 0 2px #4caf50, 0 4px 8px rgba(0,0,0,0.2); /* Borde verde brillante */
+    box-shadow: 0 0 0 2px #4caf50;
 }
 
-/* ESTADO: BLOQUEADO (Candado) */
 .ramo.bloqueado {
-    background-color: #cfd8dc !important; /* Gris */
+    background-color: #cfd8dc !important;
     color: #90a4ae;
     cursor: not-allowed;
     filter: grayscale(100%);
-    box-shadow: none;
-    pointer-events: auto; /* IMPORTANTE: Permitir hover para ver el tooltip */
 }
-.ramo.bloqueado:hover {
-    transform: none;
-}
+/* Al bloquear, quitamos la animación de escala pero dejamos el tooltip */
+.ramo.bloqueado:hover { transform: none; }
