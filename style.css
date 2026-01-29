@@ -1,205 +1,86 @@
 body {
-  font-family: Arial, sans-serif;
-  background: #f7f7fa;
-  margin: 0;
-  transition: 0.3s;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    padding: 20px;
+    text-align: center;
 }
 
 header {
-  text-align: center;
-  padding: 20px;
+    margin-bottom: 30px;
 }
 
-h1 {
-  color: #512a79;
-}
-
-#top-controls {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
-
-#buscador {
-  padding: 8px;
-  border-radius: 6px;
+.referencias span {
+    padding: 5px 10px;
+    margin: 0 5px;
+    border-radius: 4px;
+    color: white;
+    font-size: 0.8em;
+    font-weight: bold;
 }
 
 #malla-container {
-  position: relative;
-}
-
-#semestres {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 25px;
-  padding: 20px;
-  position: relative;
-  z-index: 10;
+    display: flex;
+    flex-wrap: nowrap; /* Para que quede horizontal como malla real */
+    overflow-x: auto;
+    gap: 20px;
+    padding-bottom: 20px;
+    align-items: flex-start;
 }
 
 .semestre {
-  background: white;
-  padding: 10px;
-  border-radius: 10px;
+    min-width: 140px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.semestre-title {
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 10px;
-  color: #512a79;
+.titulo-semestre {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-size: 0.9em;
 }
 
-.course {
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 10px;
-  color: white;
-  cursor: pointer;
-  transition: 0.2s;
+.ramo {
+    padding: 10px;
+    border-radius: 6px;
+    color: white;
+    font-size: 0.85em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+    user-select: none;
+    height: 60px; /* Altura fija para uniformidad */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2;
 }
 
-.course.locked {
-  background: #d2d2d2 !important;
-  cursor: not-allowed;
+/* ESTADO: NO CURSADO (Por defecto - Oscuro/Opaco) [cite: 91] */
+.ramo {
+    filter: brightness(0.6) grayscale(30%); 
+    opacity: 0.9;
 }
 
-.course.approved {
-  opacity: 0.8;
+/* ESTADO: CURSADO (Brillante/Color Real) */
+.ramo.aprobado {
+    filter: brightness(1) grayscale(0%);
+    opacity: 1;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border: 2px solid #fff;
 }
 
-/* ---------- COLORES POR GRUPO ---------- */
-.ramo-matematica { background: #a6bec1 !important; }
-.ramo-derecho { background: #bfaf95 !important; }
-.ramo-minor { background: #df97b9 !important; }
-.ramo-economia { background: #9998cd !important; }
-.ramo-fg { background: #815db7 !important; }
-.ramo-cienciapol { background: #a1a0d5 !important; }
-.ramo-base { background: #b57edc !important; }
-
-/* Bordes */
-.ramo-matematica,
-.ramo-derecho,
-.ramo-minor,
-.ramo-economia,
-.ramo-fg,
-.ramo-cienciapol,
-.ramo-base {
-  border: 2px solid #f5f5f5 !important;
-}
-
-/* Prerrequisitos */
-.ramo-prereq {
-  border: 4px solid #9e9e9e !important;
-  box-shadow: 0 0 8px #9e9e9e66;
-}
-
-/* SVG líneas */
-#lineas {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-path {
-  stroke: #9998cd;
-  stroke-width: 3;
-  fill: none;
-  stroke-dasharray: 6;
-  animation: dash 2s linear infinite;
-}
-
-@keyframes dash {
-  from { stroke-dashoffset: 20; }
-  to { stroke-dashoffset: 0; }
-}
-
-/* Tooltip */
-.tooltip {
-  position: absolute;
-  background: #512a79;
-  color: white;
-  padding: 6px;
-  border-radius: 6px;
-  font-size: 12px;
-  display: none;
-  z-index: 100;
-}
-
-/* Modo oscuro */
-body.dark {
-  background: #1f1f24;
-  color: white;
-}
-
-body.dark .semestre {
-  background: #2b2b33;
-}
-
-/* Switch */
-.switch {
-  width: 45px;
-  height: 24px;
-  position: relative;
-}
-
-.switch input { display: none; }
-
-.slider {
-  position: absolute;
-  background: #ccc;
-  border-radius: 24px;
-  inset: 0;
-}
-
-.slider::before {
-  content: "";
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  background: white;
-  border-radius: 50%;
-  top: 3px;
-  left: 3px;
-  transition: 0.3s;
-}
-
-input:checked + .slider {
-  background: #7d52a4;
-}
-
-input:checked + .slider::before {
-  transform: translateX(20px);
-}
-/* Ramos no cursados (más oscuros) */
-.course.locked {
-    filter: brightness(0.50);
+/* ESTADO: BLOQUEADO (Si no tienes el requisito) */
+.ramo.bloqueado {
     cursor: not-allowed;
+    background-color: #555 !important; /* Gris oscuro */
+    filter: grayscale(100%);
+    opacity: 0.3;
 }
 
-/* Ramos aprobados */
-.course.approved {
-    filter: brightness(1);
-    box-shadow: 0 0 8px rgba(255,255,255,0.6);
-}
-/* Filosofía + Optativos FG */
-.ramo-fg {
-    background-color: #a6bec1 !important;
-}
-
-/* Gestión / administración avanzada */
-.ramo-gestion {
-    background-color: #815db7 !important;
-}
-
-/* Minor */
-.ramo-minor {
-    background-color: #df97b9 !important;
-}
-
-/* Resto */
-.ramo-base {
-    background-color: #b57edc !important;
+.sigla {
+    display: none; /* Oculta la sigla para limpieza visual, opcional */
 }
