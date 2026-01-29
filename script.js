@@ -1,211 +1,154 @@
-// Colores definidos
-const COLORS = {
-    general: "#a6bec1",
-    profesional: "#815db7",
-    minor: "#df97b9",
-    default: "#b57edc"
+// Créditos oficiales de cada ramo
+const creditos = {
+  'iic1103': 10,
+  'iic1001': 5,
+  'mat1107': 10,
+  'mat1207': 10,
+  'fil2001': 10,
+  'iic1253': 10,
+  'iic2233': 10,
+  'iic2343': 10,
+  'mat1610': 10,
+  'teologico': 10,
+  'iic2133': 10,
+  'iic2413': 10,
+  'mat1620': 10,
+  'mat1203': 10,
+  'ofg1': 10,
+  'eyp1025': 10,
+  'iic2143': 10,
+  'iic2224': 10,
+  'iic2333': 10,
+  'ofg2': 10,
+  'iic2560': 10,
+  'iic2214': 10,
+  'iic2513': 10,
+  'ciencias': 10,
+  'ofg3': 10,
+  'iic2613': 10,
+  'iic2283': 10,
+  'iic2531': 10,
+  'eti1001': 10,
+  'ofg4': 10,
+  'iic2523': 10,
+  'iic2182': 10,
+  'opt1': 10,
+  'opt2': 10,
+  'ofg5': 10,
+  'iic2001': 5,
+  'iic2164': 10,
+  'opt3': 10,
+  'opt4': 10,
+  'opt5': 10,
+  'ofg6': 10
 };
 
-// [AQUÍ VA TU ARRAY CONST MALLA EXACTAMENTE IGUAL QUE ANTES]
-// Copia y pega el array "const malla = [...]" del código anterior aquí.
-// No lo repito para ahorrar espacio, pero usa el mismo data del PDF.
-// --- INICIO DE DATOS (Mismos de antes) ---
-const malla = [
-    // AÑO 1
-    { title: "Semestre 1", ramos: [
-        { id: "MAT1000", name: "Precálculo", color: COLORS.default, req: [] },
-        { id: "ICP101", name: "Intro. Ciencia Política", color: COLORS.default, req: [] },
-        { id: "ADP002G", name: "Gestión Pública I", color: COLORS.default, req: [] },
-        { id: "ADP001G", name: "Justicia y Bien Común", color: COLORS.default, req: [] },
-        { id: "FIL2001", name: "Filosofía ¿Para qué?", color: COLORS.general, req: [] },
-        { id: "VRA100C", name: "Ex. Com. Escrita", color: COLORS.default, req: [] }
-    ]},
-    { title: "Semestre 2", ramos: [
-        { id: "MAT1100", name: "Cálculo I", color: COLORS.default, req: ["MAT1000"] },
-        { id: "EAE11A", name: "Intro. Microeconomía", color: COLORS.default, req: [] },
-        { id: "ADP001S", name: "Comp. Organizacional", color: COLORS.default, req: [] },
-        { id: "ADP001D", name: "Intro. al Derecho", color: COLORS.default, req: [] },
-        { id: "OFG1", name: "OFG", color: COLORS.general, req: [] }
-    ]},
-    // AÑO 2
-    { title: "Semestre 3", ramos: [
-        { id: "EYP1010", name: "Probabilidad y Est.", color: COLORS.default, req: ["MAT1100"] },
-        { id: "ADP001E", name: "Fund. Macroeconomía", color: COLORS.default, req: [] },
-        { id: "ADP003G", name: "Gestión Pública II", color: COLORS.default, req: [] },
-        { id: "GOB1001", name: "Intro. Políticas Públicas", color: COLORS.default, req: [] },
-        { id: "OFG2", name: "OFG", color: COLORS.general, req: [] }
-    ]},
-    { title: "Semestre 4", ramos: [
-        { id: "ADP004G", name: "Métodos Aplicados", color: COLORS.default, req: ["EYP1010"] },
-        { id: "ADP002E", name: "Econ. Sector Público", color: COLORS.default, req: ["ADP001E"] },
-        { id: "ICP103", name: "Intro. Pol. Comparada", color: COLORS.default, req: [] },
-        { id: "ADP002D", name: "Inst. y Garantías", color: COLORS.default, req: [] },
-        { id: "OFG3", name: "OFG", color: COLORS.general, req: [] }
-    ]},
-    // AÑO 3
-    { title: "Semestre 5", ramos: [
-        { id: "ADP005G", name: "Evidencias Gestión P.", color: COLORS.default, req: [] },
-        { id: "EAA1210", name: "Contabilidad I", color: COLORS.profesional, req: [] },
-        { id: "ADP201C", name: "Pol. en Gestión y PP", color: COLORS.profesional, req: ["ICP101"] },
-        { id: "ADP201D", name: "Régimen Jurídico", color: COLORS.profesional, req: ["ADP002D"] },
-        { id: "OFG4", name: "OFG", color: COLORS.general, req: [] }
-    ]},
-    { title: "Semestre 6", ramos: [
-        { id: "ADP2011", name: "Operaciones Serv. Púb.", color: COLORS.profesional, req: ["EYP1010"] },
-        { id: "ADP201G", name: "Eval. Programas Púb.", color: COLORS.profesional, req: ["ADP004G"] },
-        { id: "ADP202G", name: "Admin. Financiera", color: COLORS.profesional, req: ["EAE11A", "ADP001E"] },
-        { id: "MIN1", name: "Minor", color: COLORS.minor, req: [] },
-        { id: "OFG5", name: "OFG", color: COLORS.general, req: [] }
-    ]},
-    // AÑO 4
-    { title: "Semestre 7", ramos: [
-        { id: "ADP2021", name: "Gestión Innovación", color: COLORS.profesional, req: [] },
-        { id: "ADP201E", name: "Gestión Personas", color: COLORS.profesional, req: ["ADP001S"] },
-        { id: "MIN2", name: "Minor", color: COLORS.minor, req: [] },
-        { id: "MIN3", name: "Minor", color: COLORS.minor, req: [] },
-        { id: "OFG6", name: "OFG", color: COLORS.general, req: [] }
-    ]},
-    { title: "Semestre 8", ramos: [
-        { id: "ADP2031", name: "Transformación Digital", color: COLORS.profesional, req: [] },
-        { id: "ADP203G", name: "Capstone (Proyectos)", color: COLORS.profesional, req: ["ADP2011"] },
-        { id: "MIN4", name: "Minor", color: COLORS.minor, req: [] },
-        { id: "MIN5", name: "Minor", color: COLORS.minor, req: [] },
-        { id: "OFG7", name: "OFG", color: COLORS.general, req: [] }
-    ]},
-    // AÑO 5
-    { title: "Semestre 9", ramos: [
-        { id: "ADP301G", name: "Ética y PP", color: COLORS.default, req: [] },
-        { id: "ADP302G", name: "Probidad y Transp.", color: COLORS.default, req: [] },
-        { id: "ADP301E", name: "Habilidades Directivas", color: COLORS.default, req: [] },
-        { id: "ADP303G", name: "Auditoría Gubernamental", color: COLORS.default, req: [] },
-        { id: "OPROF", name: "Opt. Profundización", color: COLORS.default, req: [] }
-    ]},
-    { title: "Semestre 10", ramos: [
-        { id: "ADP306G", name: "Práctica Profesional", color: COLORS.default, req: ["ADP203G"] },
-        { id: "ADP305G", name: "Entorno y Relación", color: COLORS.default, req: [] },
-        { id: "ADP304G", name: "Ética Profesional", color: COLORS.default, req: [] }
-    ]}
-];
-// --- FIN DE DATOS ---
+// Prerrequisitos de cada ramo (ramos que deben estar aprobados para desbloquear este)
+const prerequisitos = {
+  'iic1253': [],
+  'iic2233': ['iic1103'],
+  'mat1610': ['mat1107'],
+  'iic2133': ['iic1253', 'iic2233'],
+  'iic2413': ['iic1253', 'iic2233'],
+  'mat1620': ['mat1610'],
+  'mat1203': ['mat1207'],
+  'eyp1025': ['iic1253', 'mat1620'],
+  'iic2143': ['iic2413'],
+  'iic2224': ['iic1253', 'iic2133'],
+  'iic2333': ['iic2343'],
+  'iic2560': ['iic2343', 'iic2224'],
+  'iic2214': ['iic1253'],
+  'iic2513': ['iic2143'],
+  'iic2613': ['eyp1025', 'iic2233'],
+  'iic2283': ['iic2133'],
+  'iic2531': [],
+  'eti1001': ['iic2143', 'iic2513'],
+  'iic2523': ['iic2333'],
+  'iic2182': ['iic2513'],
+  'iic2001': ['iic2143'],
+  'iic2164': ['eti1001', 'iic2182', 'iic2531']
+};
 
-let aprobados = new Set();
-
-function toRoman(num) {
-    const roman = { 1: 'I', 2: 'II', 3: 'III', 4: 'IV', 5: 'V', 6: 'VI', 7: 'VII', 8: 'VIII', 9: 'IX', 10: 'X' };
-    return roman[num] || num;
+// Funciones para guardar y cargar progreso en localStorage
+function obtenerAprobados() {
+  const data = localStorage.getItem('mallaAprobados');
+  return data ? JSON.parse(data) : [];
 }
 
-function initMalla() {
-    const container = document.getElementById('malla-container');
-    container.innerHTML = '';
+function guardarAprobados(aprobados) {
+  localStorage.setItem('mallaAprobados', JSON.stringify(aprobados));
+}
 
-    // Agrupar por Años (2 semestres por año)
-    for (let i = 0; i < malla.length; i += 2) {
-        const yearIndex = (i / 2) + 1;
-        
-        // Crear columna del AÑO
-        const anioCol = document.createElement('div');
-        anioCol.className = 'anio-col';
-        
-        // Header AÑO (Ej: AÑO 1)
-        const anioHeader = document.createElement('div');
-        anioHeader.className = 'anio-header';
-        anioHeader.innerText = `Año ${yearIndex}`;
-        anioCol.appendChild(anioHeader);
+// Calcula el total de créditos de ramos aprobados
+function calcularCreditosAprobados() {
+  const aprobados = obtenerAprobados();
+  return aprobados.reduce((sum, ramo) => sum + (creditos[ramo] || 0), 0);
+}
 
-        // Contenedor de Semestres (Flex row)
-        const semestresWrapper = document.createElement('div');
-        semestresWrapper.className = 'semestres-wrapper';
+// Actualiza qué ramos están desbloqueados o bloqueados según prerrequisitos y créditos especiales
+function actualizarDesbloqueos() {
+  const aprobados = obtenerAprobados();
+  const totalCreditos = calcularCreditosAprobados();
 
-        // Procesar los 2 semestres de este año
-        for (let j = i; j < i + 2 && j < malla.length; j++) {
-            const semData = malla[j];
-            
-            const semCol = document.createElement('div');
-            semCol.className = 'semestre-col';
+  for (const [destino, reqs] of Object.entries(prerequisitos)) {
+    const elem = document.getElementById(destino);
+    if (!elem) continue;
 
-            // Header Semestre (Ej: I, II)
-            const semHeader = document.createElement('div');
-            semHeader.className = 'semestre-header';
-            semHeader.innerText = toRoman(j + 1); // Convierte 1 -> I
-            semCol.appendChild(semHeader);
+    // Verificar si se cumplen prerrequisitos normales
+    let puedeDesbloquear = reqs.every(r => aprobados.includes(r));
 
-            // Lista de Ramos
-            const ramosList = document.createElement('div');
-            ramosList.className = 'ramos-list';
-
-            semData.ramos.forEach(ramo => {
-                const rEl = document.createElement('div');
-                rEl.className = 'ramo';
-                rEl.id = ramo.id;
-                rEl.innerText = ramo.name;
-                rEl.style.backgroundColor = ramo.color;
-                rEl.onclick = () => toggleRamo(ramo.id);
-                ramosList.appendChild(rEl);
-            });
-
-            semCol.appendChild(ramosList);
-            semestresWrapper.appendChild(semCol);
-        }
-
-        anioCol.appendChild(semestresWrapper);
-        container.appendChild(anioCol);
+    // Reglas casos especiales de uno u otro requisito
+    if (destino === 'iic1253') {
+      puedeDesbloquear = aprobados.includes('mat1207') && aprobados.includes('iic1001') ||
+      aprobados.includes('mat1203');
     }
-    updateVisuals();
-}
+    if (destino === 'iic2531') {
+      puedeDesbloquear = aprobados.includes('iic2333') || aprobados.includes('iic2133');
+    }
 
-function toggleRamo(id) {
-    if (document.getElementById(id).classList.contains('bloqueado')) return;
-
-    if (aprobados.has(id)) {
-        aprobados.delete(id);
-        limpiarDependencias(id);
+    if (!elem.classList.contains('aprobado')) {
+      if (puedeDesbloquear) elem.classList.remove('bloqueado');
+      else elem.classList.add('bloqueado');
     } else {
-        aprobados.add(id);
+      // Si está aprobado, no debe estar bloqueado
+      elem.classList.remove('bloqueado');
     }
-    updateVisuals();
+  }
 }
 
-function limpiarDependencias(idPadre) {
-    malla.forEach(sem => {
-        sem.ramos.forEach(r => {
-            if (r.req.includes(idPadre) && aprobados.has(r.id)) {
-                aprobados.delete(r.id);
-                limpiarDependencias(r.id);
-            }
-        });
-    });
+// Maneja el clic para aprobar o desaprobar un ramo (solo si no está bloqueado)
+function aprobar(e) {
+  const ramo = e.currentTarget;
+  if (ramo.classList.contains('bloqueado')) return;
+
+  ramo.classList.toggle('aprobado');
+
+  const aprobados = obtenerAprobados();
+  if (ramo.classList.contains('aprobado')) {
+    if (!aprobados.includes(ramo.id)) aprobados.push(ramo.id);
+  } else {
+    const idx = aprobados.indexOf(ramo.id);
+    if (idx > -1) aprobados.splice(idx, 1);
+  }
+  guardarAprobados(aprobados);
+
+  actualizarDesbloqueos();
 }
 
-function updateVisuals() {
-    let totalRamos = 0;
-    let totalAprobados = 0;
+// Al cargar la página, asignar eventos, cargar progreso y actualizar desbloqueos
+window.addEventListener('DOMContentLoaded', () => {
+  const todosRamos = document.querySelectorAll('.ramo');
 
-    malla.forEach(sem => {
-        sem.ramos.forEach(r => {
-            totalRamos++;
-            const el = document.getElementById(r.id);
-            const reqCumplidos = r.req.every(reqId => aprobados.has(reqId));
-            
-            if (!reqCumplidos) {
-                el.classList.add('bloqueado');
-                el.classList.remove('aprobado');
-            } else {
-                el.classList.remove('bloqueado');
-                if (aprobados.has(r.id)) {
-                    el.classList.add('aprobado');
-                    totalAprobados++;
-                } else {
-                    el.classList.remove('aprobado');
-                }
-            }
-        });
-    });
+  const aprobados = obtenerAprobados();
+  todosRamos.forEach(ramo => {
+    if (aprobados.includes(ramo.id)) {
+      ramo.classList.add('aprobado');
+    }
+  });
 
-    // Actualizar barra de progreso
-    const porcentaje = Math.round((totalAprobados / totalRamos) * 100);
-    document.getElementById('porcentaje').innerText = `${porcentaje}%`;
-    document.getElementById('barra').style.width = `${porcentaje}%`;
-}
+  todosRamos.forEach(ramo => {
+    ramo.addEventListener('click', aprobar);
+  });
 
-document.addEventListener('DOMContentLoaded', initMalla);
+  actualizarDesbloqueos();
+});
