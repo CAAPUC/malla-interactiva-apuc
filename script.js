@@ -77,7 +77,8 @@ const malla = [
         { id: "ADP302G", name: "Probidad y Transparencia", creditos: 5, color: COLORS.default, req: [] },
         { id: "ADP301E", name: "Habilidades Directivas", creditos: 10, color: COLORS.default, req: [] },
         { id: "ADP303G", name: "Auditoría Gubernamental", creditos: 10, color: COLORS.default, req: [] },
-        { id: "OPROF", name: "Optativo de Profundización", creditos: 20, color: COLORS.default, req: [] }
+        { id: "OPR1", name: "Optativo de Profundización", creditos: 10, color: COLORS.default, req: [] },
+        { id: "OPR2", name: "Optativo de Profundización", creditos: 10, color: COLORS.default, req: [] }
     ]},
     { title: "Semestre 10", ramos: [
         { id: "ADP306G", name: "Práctica Profesional", creditos: 35, color: COLORS.default, req: ["ADP203G"] },
@@ -265,5 +266,6 @@ function actualizarEstadoVisual() {
 
 // Iniciar al cargar
 document.addEventListener('DOMContentLoaded', initMalla);
+
 
 
